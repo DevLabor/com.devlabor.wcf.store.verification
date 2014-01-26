@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language languagecode="en" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd">
+	<category name="wcf.store.verification">
+		<item name="wcf.store.verification.title"><![CDATA[Plugin-Store Verfification]]></item>
+		<item name="wcf.store.verification.packageName"><![CDATA[Package]]></item>
+		<item name="wcf.store.verification.packageName.error.unknownError"><![CDATA[Unknown error]]></item>
+		<item name="wcf.store.verification.username"><![CDATA[Username]]></item>
+		<item name="wcf.store.verification.username.description"><![CDATA[Enter username for your account on <a href="http://www.woltlab.com">www.woltlab.com</a>.]]></item>
+		<item name="wcf.store.verification.username.error.authFailed"><![CDATA[Authentication failed]]></item>
+		<item name="wcf.store.verification.password"><![CDATA[Password]]></item>
+		<item name="wcf.store.verification.password.description"><![CDATA[Enter password for your account on <a href="http://www.woltlab.com">www.woltlab.com</a>.]]></item>
+		<item name="wcf.store.verification.redirect.message"><![CDATA[Ihr Benutzerkonto wurde erfolgreich verifiziert. Sie werden nun automatisch weitergeleitet.]]></item>
+		<item name="wcf.store.verification.copyright"><![CDATA[<strong>Plugin-Store Verfification</strong>, developed by <a href="http://devlabor.com"><strong>DevLabor UG (haftungsbeschränkt)</strong></a>]]></item>
+	</category>
+
+	<category name="wcf.header.menu">
+		<item name="wcf.header.menu.store.verification"><![CDATA[Verfification]]></item>
+	</category>
+
+	<category name="wcf.dashboard.box">
+		<item name="wcf.dashboard.box.com.devlabor.wcf.store.verification"><![CDATA[Plugin-Store Verfification]]></item>
+	</category>
+
+	<category name="wcf.acp.group">
+		<item name="wcf.acp.group.option.category.user.pluginStoreVerification"><![CDATA[Verfification]]></item>
+		<item name="wcf.acp.group.option.pluginStoreVerification"><![CDATA[Enable Verfification]]></item>
+		<item name="wcf.acp.group.option.pluginStorePackageName"><![CDATA[Package]]></item>
+		<item name="wcf.acp.group.option.pluginStoreIdentifier"><![CDATA[Identifier]]></item>
+		<item name="wcf.acp.group.option.pluginStoreIdentifier.description"><![CDATA[Enter package identifier, e.g. „com.devlabor.wcf.store.verification“.]]></item>
+		<item name="wcf.acp.group.option.pluginStoreURL"><![CDATA[Package Server]]></item>
+		<item name="wcf.acp.group.option.pluginStoreRedirectURL"><![CDATA[Redirect]]></item>
+		<item name="wcf.acp.group.option.pluginStoreRedirectURL.description"><![CDATA[Enter the url for redirect, after successful verification.]]></item>
+	</category>
+</language>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package name="com.devlabor.wcf.store.verification" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/package.xsd">
+	<packageinformation>
+		<packagename><![CDATA[Plugin-Store Verification]]></packagename>
+		<packagedescription><![CDATA[Authenticates with WoltLab Plugin-Store and assign user to group.]]></packagedescription>
+		<version>1.0.0</version>
+		<date>2014-01-21</date>
+	</packageinformation>
+
+	<authorinformation>
+		<author><![CDATA[DevLabor UG (haftungsbeschränkt)]]></author>
+		<authorurl><![CDATA[http://www.devlabor.com]]></authorurl>
+	</authorinformation>
+
+	<requiredpackages>
+		<requiredpackage minversion="2.0.0">com.woltlab.wcf</requiredpackage>
+	</requiredpackages>
+
+	<instructions type="install">
+		<instruction type="file">files.tar</instruction>
+		<instruction type="template">templates.tar</instruction>
+		<instruction type="pageMenu">pageMenu.xml</instruction>
+		<instruction type="dashboardBox">dashboardBox.xml</instruction>
+		<instruction type="userGroupOption">userGroupOption.xml</instruction>
+		<instruction type="language">language/*.xml</instruction>
+	</instructions>
+</package>
