@@ -2,15 +2,17 @@
 <language languagecode="en" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/language.xsd">
 	<category name="wcf.store.verification">
 		<item name="wcf.store.verification.title"><![CDATA[Plugin-Store Verfification]]></item>
-		<item name="wcf.store.verification.packageName"><![CDATA[Package]]></item>
-		<item name="wcf.store.verification.packageName.error.unknownError"><![CDATA[Unknown error]]></item>
-		<item name="wcf.store.verification.username"><![CDATA[Username]]></item>
-		<item name="wcf.store.verification.username.description"><![CDATA[Enter username for your account on <a href="http://www.woltlab.com">www.woltlab.com</a>.]]></item>
-		<item name="wcf.store.verification.username.error.authFailed"><![CDATA[Authentication failed]]></item>
-		<item name="wcf.store.verification.password"><![CDATA[Password]]></item>
-		<item name="wcf.store.verification.password.description"><![CDATA[Enter password for your account on <a href="http://www.woltlab.com">www.woltlab.com</a>.]]></item>
-		<item name="wcf.store.verification.redirect.message"><![CDATA[Ihr Benutzerkonto wurde erfolgreich verifiziert. Sie werden nun automatisch weitergeleitet.]]></item>
+		<item name="wcf.store.verification.groupID"><![CDATA[Package]]></item>
+		<item name="wcf.store.verification.groupID.error.unknownError"><![CDATA[Unknown error]]></item>
+		<item name="wcf.store.verification.groupID.error.serverUnavailable"><![CDATA[Server unavailable.]]></item>
+		<item name="wcf.store.verification.woltlabID"><![CDATA[WoltLab-ID]]></item>
+		<item name="wcf.store.verification.woltlabID.description"><![CDATA[Enter your WoltLab-ID, available at <a href="http://www.woltlab.com/index.php/ApiManagement/">woltlab.com/index.php/ApiManagement/</a>.]]></item>
+		<item name="wcf.store.verification.woltlabID.error.authFailed"><![CDATA[Authentication failed]]></item>
+		<item name="wcf.store.verification.pluginStoreApiKey"><![CDATA[API-Key]]></item>
+		<item name="wcf.store.verification.pluginStoreApiKey.description"><![CDATA[Enter your API-Key, available at <a href="http://www.woltlab.com/index.php/ApiManagement/">woltlab.com/index.php/ApiManagement/</a>.]]></item>
+		<item name="wcf.store.verification.redirect.message"><![CDATA[Your account has been successfully verified. You will be redirected automatically.]]></item>
 		<item name="wcf.store.verification.copyright"><![CDATA[<strong>Plugin-Store Verfification</strong>, developed by <a href="http://devlabor.com"><strong>DevLabor UG (haftungsbeschränkt)</strong></a>]]></item>
+		<item name="wcf.store.verification.saveCredentials"><![CDATA[Save credentials]]></item>
 	</category>
 
 	<category name="wcf.header.menu">
@@ -25,10 +27,18 @@
 		<item name="wcf.acp.group.option.category.user.pluginStoreVerification"><![CDATA[Verfification]]></item>
 		<item name="wcf.acp.group.option.pluginStoreVerification"><![CDATA[Enable Verfification]]></item>
 		<item name="wcf.acp.group.option.pluginStorePackageName"><![CDATA[Package]]></item>
-		<item name="wcf.acp.group.option.pluginStoreIdentifier"><![CDATA[Identifier]]></item>
-		<item name="wcf.acp.group.option.pluginStoreIdentifier.description"><![CDATA[Enter package identifier, e.g. „com.devlabor.wcf.store.verification“.]]></item>
-		<item name="wcf.acp.group.option.pluginStoreURL"><![CDATA[Package Server]]></item>
+		<item name="wcf.acp.group.option.pluginStoreIdentifier"><![CDATA[Plugin-ID]]></item>
+		<item name="wcf.acp.group.option.pluginStoreIdentifier.description"><![CDATA[Enter the ID of entry in WoltLab Plugin-Store..]]></item>
 		<item name="wcf.acp.group.option.pluginStoreRedirectURL"><![CDATA[Redirect]]></item>
 		<item name="wcf.acp.group.option.pluginStoreRedirectURL.description"><![CDATA[Enter the url for redirect, after successful verification.]]></item>
+	</category>
+
+	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.category.user.pluginStoreVerification"><![CDATA[Plugin-Store Verfification]]></item>
+		<item name="wcf.acp.option.module_plugin_store_verification"><![CDATA[Plugin-Store Verfification]]></item>
+		<item name="wcf.acp.option.plugin_store_vendor_id"><![CDATA[Vendor-ID]]></item>
+		<item name="wcf.acp.option.plugin_store_vendor_id.description"><![CDATA[Enter your Vendor-ID, available at <a href="http://www.woltlab.com/pluginstore/index.php/VendorTransactionList/">woltlab.com/pluginstore/index.php/VendorTransactionList/</a>.]]></item>
+		<item name="wcf.acp.option.plugin_store_api_key"><![CDATA[API-Key]]></item>
+		<item name="wcf.acp.option.plugin_store_api_key.description"><![CDATA[Enter your API-Key, available at <a href="http://www.woltlab.com/pluginstore/index.php/VendorTransactionList/">woltlab.com/pluginstore/index.php/VendorTransactionList/</a>.]]></item>
 	</category>
 </language>

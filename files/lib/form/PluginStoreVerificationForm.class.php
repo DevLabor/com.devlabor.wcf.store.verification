@@ -3,6 +3,7 @@ namespace wcf\form;
 use wcf\data\user\group\UserGroup;
 use wcf\data\user\group\UserGroupList;
 use wcf\data\user\UserEditor;
+use wcf\system\exception\HTTPServerErrorException;
 use wcf\system\exception\HTTPUnauthorizedException;
 use wcf\system\exception\IllegalLinkException;
 use wcf\system\exception\PermissionDeniedException;
@@ -12,6 +13,7 @@ use wcf\system\request\LinkHandler;
 use wcf\system\WCF;
 use wcf\util\HeaderUtil;
 use wcf\util\HTTPRequest;
+use wcf\util\JSON;
 use wcf\util\StringUtil;
 
 /**
@@ -22,9 +24,15 @@ use wcf\util\StringUtil;
  * @license	GNU Lesser General Public License, version 2.1 <http://opensource.org/licenses/LGPL-2.1>
  * @package	com.devlabor.wcf.store.verification
  * @subpackage	form
- * @category	WoltLab Community Framework
+ * @category	WoltLab Community Framework 2.0
  */
 class PluginStoreVerificationForm extends AbstractForm {
+	/**
+	 * WoltLab Plugin-Store url
+	 * @var	string
+	 */
+	const PLUGIN_STORE_API_URL = 'https://www.woltlab.com/api/1.1/customer/vendor/list.json';
+
 	/**
 	 * @see	\wcf\page\AbstractPage::$activeMenuItem
 	 */
@@ -32,33 +40,45 @@ class PluginStoreVerificationForm extends AbstractForm {
 
 	/**
 	 * selected group id
-	 * @var    integer
+	 * @var	integer
 	 */
 	public $groupID = 0;
 
 	/**
-	 * store username
-	 * @var    string
+	 * saving credentials
+	 * @var	boolean
 	 */
-	public $username = '';
+	public $saveCredentials = false;
+
+	/**
+	 * store username
+	 * @var	string
+	 */
+	public $woltlabID = '';
 
 	/**
 	 * store password
-	 * @var    string
+	 * @var	string
 	 */
-	public $password = '';
+	public $pluginStoreApiKey = '';
 
 	/**
 	 * list of groups
-	 * @var    array
+	 * @var	array
 	 */
 	public $availableGroups = array();
 
 	/**
 	 * group object
-	 * @var    null
+	 * @var	\wcf\data\user\group\UserGroup
 	 */
 	public $group = null;
+
+	/**
+	 * server response
+	 * @var	array
+	 */
+	public $reply = array();
 
 	/**
 	 * @see	\wcf\page\IPage::readParameters()
@@ -76,8 +96,9 @@ class PluginStoreVerificationForm extends AbstractForm {
 		parent::readFormParameters();
 
 		if (isset($_POST['groupID'])) $this->groupID = intval($_POST['groupID']);
-		if (isset($_POST['username'])) $this->username = StringUtil::trim($_POST['username']);
-		if (isset($_POST['password'])) $this->password = StringUtil::trim($_POST['password']);
+		if (isset($_POST['saveCredentials'])) $this->saveCredentials = intval($_POST['saveCredentials']);
+		if (isset($_POST['woltlabID'])) $this->woltlabID = StringUtil::trim($_POST['woltlabID']);
+		if (isset($_POST['pluginStoreApiKey'])) $this->pluginStoreApiKey = StringUtil::trim($_POST['pluginStoreApiKey']);
 
 		$this->group = new UserGroup($this->groupID);
 		if ($this->group === null) {
@@ -92,6 +113,11 @@ class PluginStoreVerificationForm extends AbstractForm {
 		parent::readData();
 
 		$this->readGroups();
+
+		if (empty($_POST)) {
+			$this->woltlabID = WCF::getUser()->woltlabID;
+			$this->pluginStoreApiKey = WCF::getUser()->pluginStoreApiKey;
+		}
 	}
 
 	/**
@@ -123,31 +149,35 @@ class PluginStoreVerificationForm extends AbstractForm {
 			throw new UserInputException('groupID');
 		}
 
-		// username
-		if (empty($this->username)) {
-			throw new UserInputException('username');
+		// woltlabID
+		if (empty($this->woltlabID)) {
+			throw new UserInputException('woltlabID');
 		}
 
-		// password
-		if (empty($this->password)) {
-			throw new UserInputException('password');
+		// pluginStoreApiKey
+		if (empty($this->pluginStoreApiKey)) {
+			throw new UserInputException('pluginStoreApiKey');
 		}
-
-		// authenticate
-		$url = $this->group->getGroupOption('pluginStoreURL') . '?packageName=' . $this->group->getGroupOption('pluginStoreIdentifier');
 
 		// send request
 		try {
-			$request = new HTTPRequest($url, array(
-				'auth' => array(
-					'username' => $this->username,
-					'password' => $this->password
-				)
+			$request = new HTTPRequest(self::PLUGIN_STORE_API_URL, array(
+				'method' => 'POST'
+			), array(
+				'vendorID' => PLUGIN_STORE_VENDOR_ID,
+				'apiKey' => PLUGIN_STORE_API_KEY,
+				'woltlabID' => $this->woltlabID,
+				'pluginStoreApiKey' => $this->pluginStoreApiKey,
 			));
 			$request->execute();
+
+			$this->reply = $request->getReply();
 		}
 		catch (HTTPUnauthorizedException $e) {
-			throw new UserInputException('username', 'authFailed');
+			throw new UserInputException('woltlabID', 'authFailed');
+		}
+		catch (HTTPServerErrorException $e) {
+			throw new UserInputException('groupID', 'serverUnavailable');
 		}
 		catch (SystemException $e) {
 			throw new UserInputException('groupID', 'unknownError');
@@ -160,8 +190,23 @@ class PluginStoreVerificationForm extends AbstractForm {
 	public function save() {
 		parent::save();
 
+		$jsonResponse = JSON::decode($this->reply['body']);
+		if (!in_array($this->group->pluginStoreIdentifier, $jsonResponse->fileIDs)) {
+			return;
+		}
+
 		$userEditor = new UserEditor(WCF::getUser());
 		$userEditor->addToGroup($this->group->groupID);
+
+		// save credentials to user
+		if ($this->saveCredentials) {
+			$userEditor->update(array(
+				'woltlabID' => $this->woltlabID,
+				'pluginStoreApiKey' => $this->pluginStoreApiKey
+			));
+		}
+
+		UserEditor::resetCache();
 
 		$this->saved();
 
@@ -182,8 +227,9 @@ class PluginStoreVerificationForm extends AbstractForm {
 		WCF::getTPL()->assign(array(
 			'availableGroups' => $this->availableGroups,
 			'groupID' => $this->groupID,
-			'username' => $this->username,
-			'password' => $this->password
+			'woltlabID' => $this->woltlabID,
+			'pluginStoreApiKey' => $this->pluginStoreApiKey,
+			'saveCredentials' => (!empty($this->woltlabID))
 		));
 	}
 

@@ -17,24 +17,19 @@
 			<option name="pluginStorePackageName">
 				<categoryname>user.pluginStoreVerification</categoryname>
 				<optiontype>text</optiontype>
-				<defaultvalue></defaultvalue>
 			</option>
 			<option name="pluginStoreIdentifier">
 				<categoryname>user.pluginStoreVerification</categoryname>
 				<optiontype>text</optiontype>
-				<defaultvalue></defaultvalue>
-			</option>
-			<option name="pluginStoreURL">
-				<categoryname>user.pluginStoreVerification</categoryname>
-				<optiontype>text</optiontype>
-				<defaultvalue><![CDATA[http://store.woltlab.com/maelstrom/]]></defaultvalue>
 			</option>
 			<option name="pluginStoreRedirectURL">
 				<categoryname>user.pluginStoreVerification</categoryname>
 				<optiontype>text</optiontype>
-				<defaultvalue></defaultvalue>
 			</option>
 			<!-- /user.pluginStoreVerification -->
 		</options>
+		<delete>
+			<option name="pluginStoreURL" />
+		</delete>
 	</import>
 </data>

@@ -38,7 +38,7 @@
 			<legend>{lang}wcf.global.form.data{/lang}</legend>
 
 			<dl{if $errorField == 'groupID'} class="formError"{/if}>
-				<dt><label for="groupID">{lang}wcf.store.verification.packageName{/lang}</label></dt>
+				<dt><label for="groupID">{lang}wcf.store.verification.groupID{/lang}</label></dt>
 				<dd>
 					<select name="groupID" id="groupID">
 						{foreach from=$availableGroups key=__groupID item=__packageName}
@@ -50,44 +50,52 @@
 							{if $errorType == 'empty'}
 								{lang}wcf.global.form.error.empty{/lang}
 							{else}
-								{lang}wcf.store.verification.packageName.error.{$errorType}{/lang}
+								{lang}wcf.store.verification.groupID.error.{$errorType}{/lang}
 							{/if}
 						</small>
 					{/if}
 				</dd>
 			</dl>
 
-			<dl{if $errorField == 'username'} class="formError"{/if}>
-				<dt><label for="username">{lang}wcf.store.verification.username{/lang}</label></dt>
+			<dl{if $errorField == 'woltlabID'} class="formError"{/if}>
+				<dt><label for="woltlabID">{lang}wcf.store.verification.woltlabID{/lang}</label></dt>
 				<dd>
-					<input type="text" id="username" name="username" value="{$username}" required="required" class="medium" />
-					{if $errorField == 'username'}
+					<input type="text" id="woltlabID" name="woltlabID" value="{$woltlabID}" required="required" class="medium" />
+					{if $errorField == 'woltlabID'}
 						<small class="innerError">
 							{if $errorType == 'empty'}
 								{lang}wcf.global.form.error.empty{/lang}
 							{else}
-								{lang}wcf.store.verification.username.error.{@$errorType}{/lang}
+								{lang}wcf.store.verification.woltlabID.error.{@$errorType}{/lang}
 							{/if}
 						</small>
 					{/if}
-					<small>{lang}wcf.store.verification.username.description{/lang}</small>
+					<small>{lang}wcf.store.verification.woltlabID.description{/lang}</small>
 				</dd>
 			</dl>
 
-			<dl{if $errorField == 'password'} class="formError"{/if}>
-				<dt><label for="password">{lang}wcf.store.verification.password{/lang}</label></dt>
+			<dl{if $errorField == 'pluginStoreApiKey'} class="formError"{/if}>
+				<dt><label for="pluginStoreApiKey">{lang}wcf.store.verification.pluginStoreApiKey{/lang}</label></dt>
 				<dd>
-					<input type="password" id="password" name="password" value="{$password}" required="required" class="medium" />
-					{if $errorField == 'password'}
+					<input type="text" id="pluginStoreApiKey" name="pluginStoreApiKey" value="{$pluginStoreApiKey}" required="required" class="medium" />
+					{if $errorField == 'pluginStoreApiKey'}
 						<small class="innerError">
 							{if $errorType == 'empty'}
 								{lang}wcf.global.form.error.empty{/lang}
 							{else}
-								{lang}wcf.store.verification.password.error.{@$errorType}{/lang}
+								{lang}wcf.store.verification.pluginStoreApiKey.error.{@$errorType}{/lang}
 							{/if}
 						</small>
 					{/if}
-					<small>{lang}wcf.store.verification.password.description{/lang}</small>
+					<small>{lang}wcf.store.verification.pluginStoreApiKey.description{/lang}</small>
+				</dd>
+			</dl>
+
+			<dl>
+				<dd>
+					<label for="saveCredentials">
+						<input type="checkbox" id="saveCredentials" name="saveCredentials" value="1"{if $saveCredentials} checked="checked"{/if} /> {lang}wcf.store.verification.saveCredentials{/lang}
+					</label>
 				</dd>
 			</dl>
 		</fieldset>

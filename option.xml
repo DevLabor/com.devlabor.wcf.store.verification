@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/options.xsd">
+	<import>
+		<categories>
+			<category name="user.pluginStoreVerification">
+				<parent>user</parent>
+			</category>
+		</categories>
+
+		<options>
+			<!-- module -->
+			<option name="module_plugin_store_verification">
+				<categoryname>module</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<!-- /module -->
+
+			<option name="plugin_store_vendor_id">
+				<categoryname>user.pluginStoreVerification</categoryname>
+				<optiontype>text</optiontype>
+			</option>
+			<option name="plugin_store_api_key">
+				<categoryname>user.pluginStoreVerification</categoryname>
+				<optiontype>text</optiontype>
+			</option>
+		</options>
+	</import>
+</data>

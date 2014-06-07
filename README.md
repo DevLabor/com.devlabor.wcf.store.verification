@@ -1,7 +1,7 @@
 Plugin-Store Verification
 ===================================
 
-Authenticates with WoltLab Plugin-Store and assign user to group.
+Authenticates with WoltLab Plugin-Store and assigns user to group.
 
 Download
 --------
