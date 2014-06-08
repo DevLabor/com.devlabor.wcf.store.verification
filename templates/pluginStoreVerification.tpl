@@ -60,7 +60,7 @@
 			<dl{if $errorField == 'woltlabID'} class="formError"{/if}>
 				<dt><label for="woltlabID">{lang}wcf.store.verification.woltlabID{/lang}</label></dt>
 				<dd>
-					<input type="text" id="woltlabID" name="woltlabID" value="{$woltlabID}" required="required" class="medium" />
+					<input type="number" id="woltlabID" name="woltlabID" value="{$woltlabID}" required="required" class="medium" />
 					{if $errorField == 'woltlabID'}
 						<small class="innerError">
 							{if $errorType == 'empty'}

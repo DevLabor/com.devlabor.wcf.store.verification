@@ -75,12 +75,6 @@ class PluginStoreVerificationForm extends AbstractForm {
 	public $group = null;
 
 	/**
-	 * server response
-	 * @var	array
-	 */
-	public $reply = array();
-
-	/**
 	 * @see	\wcf\page\IPage::readParameters()
 	 */
 	public function readParameters() {
@@ -171,7 +165,12 @@ class PluginStoreVerificationForm extends AbstractForm {
 			));
 			$request->execute();
 
-			$this->reply = $request->getReply();
+			$reply = $request->getReply();
+			$jsonResponse = JSON::decode($reply['body'], false);
+
+			if (!is_array($jsonResponse->fileIDs) || !in_array($this->group->pluginStoreIdentifier, $jsonResponse->fileIDs)) {
+				throw new SystemException('Can not resolve file ID.');
+			}
 		}
 		catch (HTTPUnauthorizedException $e) {
 			throw new UserInputException('woltlabID', 'authFailed');
@@ -189,11 +188,6 @@ class PluginStoreVerificationForm extends AbstractForm {
 	 */
 	public function save() {
 		parent::save();
-
-		$jsonResponse = JSON::decode($this->reply['body']);
-		if (!in_array($this->group->pluginStoreIdentifier, $jsonResponse->fileIDs)) {
-			return;
-		}
 
 		$userEditor = new UserEditor(WCF::getUser());
 		$userEditor->addToGroup($this->group->groupID);
