@@ -39,6 +39,11 @@ class PluginStoreVerificationForm extends AbstractForm {
 	public $activeMenuItem = 'wcf.header.menu.store.verification';
 
 	/**
+	 * @see	\wcf\page\AbstractPage::$neededModules
+	 */
+	public $neededModules = array('MODULE_PLUGIN_STORE_VERIFICATION');
+
+	/**
 	 * selected group id
 	 * @var	integer
 	 */

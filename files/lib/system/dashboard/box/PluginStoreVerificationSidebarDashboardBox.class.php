@@ -23,6 +23,10 @@ class PluginStoreVerificationSidebarDashboardBox extends AbstractSidebarDashboar
 	 * @see	\wcf\system\dashboard\box\AbstractContentDashboardBox::render()
 	 */
 	protected function render() {
+		if (!MODULE_PLUGIN_STORE_VERIFICATION) {
+			return '';
+		}
+
 		$availableGroups = array();
 		$groupList = new UserGroupList();
 		$groupList->readObjects();
