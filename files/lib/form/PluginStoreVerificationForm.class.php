@@ -39,11 +39,6 @@ class PluginStoreVerificationForm extends AbstractForm {
 	public $activeMenuItem = 'wcf.header.menu.store.verification';
 
 	/**
-	 * @see	\wcf\page\AbstractPage::$neededModules
-	 */
-	public $neededModules = array('MODULE_PLUGIN_STORE_VERIFICATION');
-
-	/**
 	 * selected group id
 	 * @var	integer
 	 */
@@ -100,7 +95,7 @@ class PluginStoreVerificationForm extends AbstractForm {
 		if (isset($_POST['pluginStoreApiKey'])) $this->pluginStoreApiKey = StringUtil::trim($_POST['pluginStoreApiKey']);
 
 		$this->group = new UserGroup($this->groupID);
-		if ($this->group === null) {
+		if (!$this->group->groupID) {
 			throw new IllegalLinkException();
 		}
 	}
@@ -173,7 +168,7 @@ class PluginStoreVerificationForm extends AbstractForm {
 			$reply = $request->getReply();
 			$jsonResponse = JSON::decode($reply['body'], false);
 
-			if (!is_array($jsonResponse->fileIDs) || !in_array($this->group->pluginStoreIdentifier, $jsonResponse->fileIDs)) {
+			if (!is_array($jsonResponse->fileIDs) || !in_array($this->group->getGroupOption('pluginStoreIdentifier'), $jsonResponse->fileIDs)) {
 				throw new SystemException('Can not resolve file ID.');
 			}
 		}
