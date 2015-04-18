@@ -1,6 +1,6 @@
 <?php
 namespace wcf\system\dashboard\box;
-use wcf\data\user\group\UserGroupList;
+use wcf\data\user\group\PluginStoreVerificationGroupsCache; 
 use wcf\system\WCF;
 
 /**
@@ -26,16 +26,8 @@ class PluginStoreVerificationSidebarDashboardBox extends AbstractSidebarDashboar
 		if (!MODULE_PLUGIN_STORE_VERIFICATION) {
 			return '';
 		}
-
-		$availableGroups = array();
-		$groupList = new UserGroupList();
-		$groupList->readObjects();
-
-		foreach ($groupList->getObjects() as $group) {
-			if ($group->getGroupOption('pluginStoreVerification') && !$group->isMember()) {
-				$availableGroups[$group->groupID] = $group->getGroupOption('pluginStorePackageName');
-			}
-		}
+		
+		$availableGroups = PluginStoreVerificationGroupsCache::getInstance()->getAviableGroups(); 
 
 		return (WCF::getUser()->userID && !empty($availableGroups));
 	}
