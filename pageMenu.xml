@@ -5,6 +5,7 @@
 			<controller><![CDATA[wcf\form\PluginStoreVerificationForm]]></controller>
 			<position>header</position>
 			<options>module_plugin_store_verification</options>
+                        <classname>\wcf\system\menu\page\PluginStoreVerificationPageMenuItemProvider</classname>
 		</pagemenuitem>
 	</import>
 </data>
