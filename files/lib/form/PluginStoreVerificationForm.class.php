@@ -39,6 +39,11 @@ class PluginStoreVerificationForm extends AbstractForm {
 	public $activeMenuItem = 'wcf.header.menu.store.verification';
 
 	/**
+	 * @see \wcf\page\AbstractPage::$loginRequired
+	 */
+	public $loginRequired = true;
+	
+	/**
 	 * selected group id
 	 * @var	integer
 	 */
@@ -225,17 +230,5 @@ class PluginStoreVerificationForm extends AbstractForm {
 			'pluginStoreApiKey' => $this->pluginStoreApiKey,
 			'saveCredentials' => (!empty($this->woltlabID))
 		));
-	}
-
-	/**
-	 * @see	\wcf\page\IPage::show()
-	 */
-	public function show() {
-		// check permission
-		if (!WCF::getUser()->userID) {
-			throw new PermissionDeniedException();
-		}
-
-		parent::show();
 	}
 }
