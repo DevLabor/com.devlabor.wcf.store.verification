@@ -1,12 +1,12 @@
 <?php
 namespace wcf\form;
 use wcf\data\user\group\UserGroup;
-use wcf\data\user\group\UserGroupList;
+use wcf\data\user\group\PluginStoreVerificationGroupsCache; 
 use wcf\data\user\UserEditor;
 use wcf\system\exception\HTTPServerErrorException;
 use wcf\system\exception\HTTPUnauthorizedException;
 use wcf\system\exception\IllegalLinkException;
-use wcf\system\exception\PermissionDeniedException;
+use wcf\system\exception\NamedUserException; 
 use wcf\system\exception\SystemException;
 use wcf\system\exception\UserInputException;
 use wcf\system\request\LinkHandler;
@@ -38,6 +38,11 @@ class PluginStoreVerificationForm extends AbstractForm {
 	 */
 	public $activeMenuItem = 'wcf.header.menu.store.verification';
 
+	/**
+	 * @see \wcf\page\AbstractPage::$loginRequired
+	 */
+	public $loginRequired = true;
+	
 	/**
 	 * selected group id
 	 * @var	integer
@@ -118,15 +123,10 @@ class PluginStoreVerificationForm extends AbstractForm {
 	 * Reads groups.
 	 */
 	protected function readGroups() {
-		$this->availableGroups = array();
-
-		$groupList = new UserGroupList();
-		$groupList->readObjects();
-
-		foreach ($groupList->getObjects() as $group) {
-			if ($group->getGroupOption('pluginStoreVerification') && !$group->isMember()) {
-				$this->availableGroups[$group->groupID] = $group->getGroupOption('pluginStorePackageName');
-			}
+		$this->availableGroups = PluginStoreVerificationGroupsCache::getInstance()->getAviableGroups();
+		
+		if (!count($this->availableGroups)) {
+			throw new NamedUserException(WCF::getLanguage()->get('wcf.store.verification.noGroupsAviable')); 
 		}
 	}
 
@@ -225,17 +225,5 @@ class PluginStoreVerificationForm extends AbstractForm {
 			'pluginStoreApiKey' => $this->pluginStoreApiKey,
 			'saveCredentials' => (!empty($this->woltlabID))
 		));
-	}
-
-	/**
-	 * @see	\wcf\page\IPage::show()
-	 */
-	public function show() {
-		// check permission
-		if (!WCF::getUser()->userID) {
-			throw new PermissionDeniedException();
-		}
-
-		parent::show();
 	}
 }

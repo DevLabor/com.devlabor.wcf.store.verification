@@ -13,6 +13,7 @@
 		<item name="wcf.store.verification.redirect.message"><![CDATA[Your account has been successfully verified. You will be redirected automatically.]]></item>
 		<item name="wcf.store.verification.copyright"><![CDATA[<strong>Plugin-Store Verfification</strong>, developed by <a href="http://devlabor.com"><strong>DevLabor UG (haftungsbeschränkt)</strong></a>]]></item>
 		<item name="wcf.store.verification.saveCredentials"><![CDATA[Save credentials]]></item>
+		<item name="wcf.store.verification.noGroupsAviable"><![CDATA[You have already unlocked for all available plugins.]]></item>
 	</category>
 
 	<category name="wcf.header.menu">
